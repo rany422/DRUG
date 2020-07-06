@@ -1,0 +1,94 @@
+
+{% extends './base.html' %}
+ 
+ 
+{% block content %}
+<div class="col-sm-8" id="middle1"  >
+  <h4 id="a1">Update Details </h4>  
+
+   <form method="POST" class="post-form" action="/update_drug/{{product.id}}">  
+               {% csrf_token %}  
+    <div class="form-group row">  
+    <label for="col-sm-2 col-form-label">Company Name:</label>  
+    <div class="col-sm-4">  
+    <input type="text" class="form-control" name="company_name" id="id_company_name" required maxlength="50" value="{{ product.company_name}}"/>  
+    </div>     
+                 
+    <div class="form-group row">  
+    <label for="col-sm-2 col-form-label">Brand Name:</label>  
+    <div class="col-sm-4">  
+     <input type="text" class="form-control" name="brand_name" id="id_brand_name" required maxlength="50" value="{{ product.brand_name}}"/>  
+    </div>  
+    <div class="form-group row">  
+    <label for="col-sm-2 col-form-label">Dosage Type:</label>  
+    <div class="col-sm-4">  
+     <input type="text" class="form-control" name="dosage_type" id="id_dosage_type" required maxlength="50" value="{{ product.dosage_type}}"/>  
+    </div>  
+     </div>  
+     <div class="form-group row">  
+    <label for="col-sm-2 col-form-label">Dosage Form:</label>  
+    <div class="col-sm-4">  
+     <input type="text" class="form-control" name="dosage_form" id="id_dosage_form" required maxlength="100" value="{{ product.dosage_form }}" />  
+    </div>  
+     </div>  
+   <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">Schedule Type:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="schedule_type" id="id_schedule_type" required maxlength="15" value="{{ product.schedule_type }}" />  
+    </div> 
+    </div>
+   
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">Sheif Life:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="sheif_life" id="id_sheif_life" required maxlength="15" value="{{ product.sheif_life }}" />  
+    </div> 
+    </div>    
+    
+   
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">speciality:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="speciality" id="id_speciality" required maxlength="15" value="{{ product.speciality }}" />  
+    </div> 
+    </div> 
+    
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">HSN Code:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="HSN_CODE" id="id_HSN_CODE" required maxlength="15" value="{{ product.HSN_CODE }}" />  
+    </div> 
+    </div>
+    
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">Drug Indication:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="drug_indication" id="id_drug_indication" required maxlength="15" value="{{ product.drug_indication }}" />  
+    </div> 
+    </div>
+    
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">Warning:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="warning" id="id_warning" required maxlength="15" value="{{ product.warning }}" />  
+    </div> 
+    </div>
+    
+    <div class="form-group row">  
+      <label for="col-sm-2 col-form-label">GST:</label>
+      <div class="col-sm-4">  
+     <input type="text" class="form-control" name="gst" id="id_gst" required maxlength="15" value="{{ product.gst }}" />  
+    </div> 
+    </div>
+    
+    <div class="form-group row">  
+    <label class="col-sm-8 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <button type="submit" class="btn btn-success ">Update</button>  
+    </div>  
+   <a href="/drug_master"><div class="btn btn-info">Cancel</div></a>
+   </div> 
+ 
+    </div>  
+   </form>  
+{% endblock %}

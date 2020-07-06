@@ -1,0 +1,81 @@
+{% extends './base.html' %}
+{% load static %}
+<!--responce.GETuser()-->
+
+{% block content %}
+<div class="col-sm-8" id="middle1"  >
+        <h4 id="a1">Existing Drug Master </h4>
+     
+
+          <form action="." name="theForm" class="date">
+            <div class="filters-groups">
+
+                <p>Start Date <input class="date-picker-max" onchange="filterDates()" name="minDate" value="{{minDate}}" type="text"></p>
+                <p>End Date <input class="date-picker-max" onchange="filterDates()" name="maxDate" value="{{maxDate}}"  type="text" ></p>
+
+            </div>        
+
+          </form>
+
+        <link    
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+        <div class="form-group has-feedback">
+             
+
+            <a href="\add_new" class="btn btn-primary float-right" role="button">ADD</a>
+        </div>
+            <table id="myTable1" class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>id</th>
+                  <th>Company Name</th>
+                  <th>Brand Name</th>
+                  <th>Dosage Type</th>
+                  <th>Dosage Form</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+               {% for product in products_list %}
+
+                <tr>
+                   <td>{{ product.publish_date }}</td>
+                   <td>{{ product.id }}</td>
+                   <td>{{ product.company_name }}</td>
+                   <td >{{ product.brand_name }}</td>
+                   <td>{{ product.dosage_type }}</td>
+                   <td>{{ product.dosage_form }}</td>   
+                   <td>
+                     <a href="/edit_drug/{{ product.id }}" class="glyphicon glyphicon-pencil" ></a>
+
+                     <a href="/delete_drug/{{ product.id }}" class="glyphicon glyphicon-trash"></a>
+                     
+                    </td>
+                </tr>
+               {% endfor %}
+              </tbody>
+
+            </table>
+      
+        </div>
+
+</div>
+{% endblock %}
+{% block js %}
+
+<script src="{% static 'js/data.js' %}"></script>
+
+
+  <script>
+    function filterDates(){
+        minDate = $('[name=minDate]').val();
+        maxDate = $('[name=maxDate]').val();
+        if (minDate && maxDate){
+          theForm.submit()
+        }   
+    }
+  </script>
+
+{% endblock js %}

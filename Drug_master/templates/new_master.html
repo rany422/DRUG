@@ -1,0 +1,158 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-8" id="middle1"  >
+    <h4 id="a1">New Drug Master</h4>
+            <div class="return">
+                <a href="/drug_master" class="btn btn-warning">&laquo; Back</a>
+            </div>
+          <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+            <div id="drugform">
+
+           
+          <form onsubmit="event.preventDefault(); submitForm()"> {% csrf_token %}
+            <lable for= 'company_name' >Company Name</lable>
+            <input type="text" id='company_name' name='company_name' required>
+            
+            <lable for= 'brand_name' >Brand Name</lable>
+            <input type="text" id='brand_name' name='brand_name' required>
+            <lable for= 'dosage_type' >Dosage Type</lable>
+            <input type="text" id='dosage_type' name='dosage_type' required>
+            <lable for= 'dosage_form' >Dosage Form</lable>
+            <input type="text" id='dosage_form' name='dosage_form' required>
+            
+            <lable for= 'brand_name' >Brand Name</lable>
+            <input type="text" id='brand_name' name='brand_name' required>
+            <lable for= 'schedule_type' >Schedule Type</lable>
+            <input type="text" id='schedule_type' name='schedule_type' required>
+            <lable for= 'sheif_life' >Sheif Life</lable>
+            <input type="text" id='sheif_life' name='sheif_life' required>
+            <lable for= 'speciality' >Speciality</lable>
+            <input type="text" id='speciality' name='speciality' required>
+            <lable for= 'HSN_CODE' >HSN_CODE </lable>
+            <input type="text" id='HSN_CODE' name='HSN_CODE' required>
+            <lable for= 'drug_indication' >Drug Indication</lable>
+            <input type="text" id='drug_indication' name='drug_indication' required>
+
+            <lable for= 'warning' >warning</lable>
+            <input type="text" id='warning' name='warning' required>
+            <lable for= 'gst' >gst </lable>
+            <input type="text" id='gst' name='gst' required>
+            
+  
+          <hr>          
+          <input type='submit' value='Update'> <span style='display:none' id='loadingdrug'>Loading</span>
+          </form>
+        </div>
+
+          <div id="genericform" style="display: none;">
+            <form>
+              <lable for= 'generic_name' >generic_name</lable>
+              <input type="text" id='generic_name' name='generic_name'>
+              <lable for= 'generic_strength' >generic_strength </lable>
+              <input type="text" id='generic_strength' name='generic_strength'>
+              <lable for= 'generic_unit' > generic_unit</lable>
+              <input type="text" id='generic_unit' name='generic_unit'>
+              <br>
+            </form>
+          </div>
+        <table id="myTable2" class="table">
+            <thead>
+           
+              <tr>
+                <th>Parent Drug Id</th>
+                <th>Child Id</th>
+                <th>Generic Name</th>
+                <th>Generic Strength</th>
+                <th>Generic Unit</th>
+                <th>Action</th>
+              </tr>
+           
+            </thead>
+            <tbody>
+
+                {% for item in generic_list %}
+
+              <tr>
+                 <td>{{ item.drug_master.id }}</td>
+                 <td>{{ item.id }}</td> 
+                 <td>{{ item.generic_name }}</td>
+                 <td>{{ item.generic_strength}}</td>
+                 <td>{{ item.generic_unit }}</td>
+                 <td>
+                  <a href="/edit_generic/{{ item.id }}"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                    <a href="/delete_generic/{{ item.id }}" class="glyphicon glyphicon-trash" ></a>
+                   
+                  </td>
+              </tr>
+                {% endfor %}
+            </tbody>
+
+          </table>
+          
+    
+</div>
+
+<script>
+function submitForm() {
+  document.querySelector('#loadingdrug').style.display = 'block'
+  company_name = document.querySelector('#company_name').value
+  console.log('clickrde.', company_name)
+  brand_name = document.querySelector('#brand_name').value
+  dosage_type = document.querySelector('#dosage_type').value
+  dosage_form = document.querySelector('#dosage_form').value
+  schedule_type = document.querySelector('#schedule_type').value
+  sheif_life = document.querySelector('#sheif_life').value
+  speciality = document.querySelector('#speciality').value
+  HSN_CODE = document.querySelector('#HSN_CODE').value
+  drug_indication = document.querySelector('#drug_indication').value
+  warning = document.querySelector('#warning').value
+  gst = document.querySelector('#gst').value
+  var token = document.querySelector("input[name=csrfmiddlewaretoken]").value
+  console.log(token)
+  //console.log(company_name, brand_name, dosage_type, dosage_form, schedule_type, sheif_life, speciality, HSN_CODE, drug_indication, warning, gst)
+	let  formData = new FormData()
+	formData.append('company_name', company_name)
+	formData.append('brand_name', brand_name)
+  formData.append('dosage_type', dosage_type)
+  formData.append('dosage_form', dosage_form)
+  formData.append('schedule_type', schedule_type)
+	formData.append('sheif_life', sheif_life)
+  formData.append('speciality', speciality)
+  formData.append('HSN_CODE', HSN_CODE)
+  formData.append('drug_indication', drug_indication)
+	formData.append('gst', gst)
+  url = '/create_drug/'
+	fetch(url,
+	{
+	body: new URLSearchParams(formData),
+	method: 'post',
+	headers:{
+	'X-CSRFTOKEN': token
+	}
+	}).then(res => res.json()).then(function(data) {
+    document.querySelector('#loadingdrug').style.display = 'none'
+    document.querySelector('#drugform').style.display = 'none'
+    document.querySelector('#genericform').style.display = 'block'
+    
+		console.log(data)
+		if (data.error){
+			console.log('error')
+	
+		}
+		else if(data.response){
+			// document.querySelector('#registerhead').style.display = 'block'
+			// document.querySelector('#signinbutton').style.display = 'none'
+
+		}
+		
+	})
+  
+
+
+}
+
+</script>
+    
+{% endblock %}

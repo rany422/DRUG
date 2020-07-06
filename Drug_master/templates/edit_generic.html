@@ -1,0 +1,35 @@
+{% extends './base.html' %}
+{% block content %}
+
+<div class="col-sm-8" id="middle1"  >
+    <h4 id="a1">Update Generic Details </h4>  
+    <form method="POST" class="post-form" action="/update_generic/{{item.id}}">  
+        {% csrf_token %}  
+        <div class="form-group row">  
+            <label for="col-sm-2 col-form-label">Generic Name:</label>  
+            <div class="col-sm-4">  
+                <input type="text" class="form-control" name="generic_name" id="id_generic_name" required maxlength="50" value="{{ item.generic_name}}"/>  
+            </div>     
+        </div>        
+        <div class="form-group row">  
+            <label for="col-sm-2 col-form-label">Generic Strength:</label>  
+            <div class="col-sm-4">  
+                <input type="text" class="form-control" name="generic_strength" id="id_generic_strength" required maxlength="50" value="{{ item.generic_strength}}"/>  
+            </div>  
+        </div>    
+        <div class="form-group row">  
+            <label for="col-sm-2 col-form-label">Generic Unit:</label>  
+            <div class="col-sm-4">  
+                <input type="text" class="form-control" name="generic_unit" id="id_generic_unit" required maxlength="50" value="{{ item.generic_unit}}"/>  
+            </div>  
+        </div>        
+        <div class="form-group row">  
+            <label class="col-sm-8 col-form-label"></label>  
+            <div class="col-sm-4">  
+                <button type="submit" class="btn btn-success ">Update</button>  
+            </div>  
+           <a href="/add_new"><div class="btn btn-info">Cancel</div></a>
+        </div> 
+         
+    </form>  
+{% endblock %}        
